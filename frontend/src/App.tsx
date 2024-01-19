@@ -8,7 +8,7 @@ function App() {
       <header>
         <Navbar bg='dark' variant='dark' expand='lg'>
           <Container>
-            <Navbar.Brand>TSAMAZONA</Navbar.Brand>
+            <Navbar.Brand>TS Amazona</Navbar.Brand>
           </Container>
           <Nav>
             <a href='/cart' className='nav-link'>
