@@ -4,16 +4,18 @@ import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 import { productRouter } from './routers/productRouter'
 import { seedRouter } from './routers/seedRouter'
+import { userRouter } from './routers/userRouter'
 
 const app = express()
 const PORT = 4000
+const MONGODB_URI =
+  process.env.MONGODB_URI || 'mongodb://localhost/tsmernamazonadb'
 
 dotenv.config()
 mongoose.set('strictQuery', true)
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || 'mongodb://localhost/tsmernamazonadb'
-
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(
   cors({
     credentials: true,
@@ -22,6 +24,7 @@ app.use(
 )
 
 app.use('/api/products', productRouter)
+app.use('/api/users', userRouter)
 app.use('/api/seed', seedRouter)
 
 app.listen(PORT, async () => {
