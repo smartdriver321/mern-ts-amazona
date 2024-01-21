@@ -1,4 +1,3 @@
-import { HelmetProvider } from 'react-helmet-async'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {
@@ -7,8 +6,8 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom'
-
-//import 'bootstrap/dist/css/bootstrap.min.css'
+import { HelmetProvider } from 'react-helmet-async'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import App from './App'
 import './index.css'
 import HomePage from './pages/HomePage'
@@ -19,19 +18,25 @@ import { StoreProvider } from './Store'
 import CartPage from './pages/CartPage'
 import SigninPage from './pages/SigninPage'
 import SignupPage from './pages/SignupPage'
-import ShippingAddress from './pages/ShippingAddress'
+import ShippingAddressPage from './pages/ShippingAddressPage'
 import PaymentMethodPage from './pages/PaymentMethodPage'
+import ProtectedRoute from './components/ProtectedRoute'
+import PlaceOrderPage from './pages/PlaceOrderPage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<App />}>
+    <Route path="/" element={<App />}>
       <Route index={true} element={<HomePage />} />
-      <Route path='product/:slug' element={<ProductPage />} />
-      <Route path='cart' element={<CartPage />} />
-      <Route path='signin' element={<SigninPage />} />
-      <Route path='signup' element={<SignupPage />} />
-      <Route path='shipping' element={<ShippingAddress />} />
-      <Route path='payment' element={<PaymentMethodPage />} />
+      <Route path="product/:slug" element={<ProductPage />} />
+      <Route path="cart" element={<CartPage />} />
+      <Route path="signin" element={<SigninPage />} />
+      <Route path="signup" element={<SignupPage />} />
+      <Route path="" element={<ProtectedRoute />}>
+        <Route path="shipping" element={<ShippingAddressPage />} />
+        <Route path="payment" element={<PaymentMethodPage />} />
+        <Route path="placeorder" element={<PlaceOrderPage />} />
+      </Route>
+
       {/* <Route path="dashboard" element={<Dashboard />} /> */}
       {/* ... etc. */}
     </Route>
@@ -46,7 +51,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </HelmetProvider>
     </StoreProvider>

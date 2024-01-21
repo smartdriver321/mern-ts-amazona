@@ -1,14 +1,14 @@
-import { Button, Card } from 'react-bootstrap'
-import { Product } from '../types/Product'
-import { Link } from 'react-router-dom'
-import Rating from './Rating'
 import { useContext } from 'react'
-import { Store } from '../Store'
-import { convertProductToCartItem } from '../utils'
-import { CartItem } from '../types/Cart'
+import { Button, Card } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { Store } from '../Store'
+import { CartItem } from '../types/Cart'
+import { Product } from '../types/Product'
+import { convertProductToCartItem } from '../utils'
+import Rating from './Rating'
 
-export default function ProductItem({ product }: { product: Product }) {
+function ProductItem({ product }: { product: Product }) {
   const { state, dispatch } = useContext(Store)
   const {
     cart: { cartItems },
@@ -31,7 +31,7 @@ export default function ProductItem({ product }: { product: Product }) {
   return (
     <Card>
       <Link to={`/product/${product.slug}`}>
-        <img src={product.image} className='card-img-top' alt={product.name} />
+        <img src={product.image} className="card-img-top" alt={product.name} />
       </Link>
       <Card.Body>
         <Link to={`/product/${product.slug}`}>
@@ -40,7 +40,7 @@ export default function ProductItem({ product }: { product: Product }) {
         <Rating rating={product.rating} numReviews={product.numReviews} />
         <Card.Text>${product.price}</Card.Text>
         {product.countInStock === 0 ? (
-          <Button variant='light' disabled>
+          <Button variant="light" disabled>
             Out of stock
           </Button>
         ) : (
@@ -54,3 +54,5 @@ export default function ProductItem({ product }: { product: Product }) {
     </Card>
   )
 }
+
+export default ProductItem

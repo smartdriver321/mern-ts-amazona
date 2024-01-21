@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Store } from '../Store'
-import { Helmet } from 'react-helmet-async'
-import CheckoutSteps from '../components/CheckoutSteps'
+import { useContext, useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import { Helmet } from 'react-helmet-async'
+import { useNavigate } from 'react-router-dom'
+import CheckoutSteps from '../components/CheckoutSteps'
+import { Store } from '../Store'
 
-export default function ShippingAddress() {
+export default function ShippingAddressPage() {
   const navigate = useNavigate()
   const { state, dispatch } = useContext(Store)
   const {
@@ -15,7 +15,7 @@ export default function ShippingAddress() {
 
   useEffect(() => {
     if (!userInfo) {
-      navigate(`/signin?redirect=/shippng`)
+      navigate('/signin?redirect=/shipping')
     }
   }, [userInfo, navigate])
 
@@ -39,8 +39,15 @@ export default function ShippingAddress() {
     })
     localStorage.setItem(
       'shippingAddress',
-      JSON.stringify({ fullName, address, city, postalCode, country })
+      JSON.stringify({
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      })
     )
+
     navigate('/payment')
   }
 
@@ -50,10 +57,10 @@ export default function ShippingAddress() {
         <title>Shipping Address</title>
       </Helmet>
       <CheckoutSteps step1 step2></CheckoutSteps>
-      <div className='container small-container'>
-        <h1 className='my-3'>Shipping Address</h1>
+      <div className="container small-container">
+        <h1 className="my-3">Shipping Address</h1>
         <Form onSubmit={submitHandler}>
-          <Form.Group className='mb-3' controlId='fullName'>
+          <Form.Group className="mb-3" controlId="fullName">
             <Form.Label>Full Name</Form.Label>
             <Form.Control
               value={fullName}
@@ -61,8 +68,7 @@ export default function ShippingAddress() {
               required
             />
           </Form.Group>
-
-          <Form.Group className='mb-3' controlId='address'>
+          <Form.Group className="mb-3" controlId="address">
             <Form.Label>Address</Form.Label>
             <Form.Control
               value={address}
@@ -70,8 +76,7 @@ export default function ShippingAddress() {
               required
             />
           </Form.Group>
-
-          <Form.Group className='mb-3' controlId='city'>
+          <Form.Group className="mb-3" controlId="city">
             <Form.Label>City</Form.Label>
             <Form.Control
               value={city}
@@ -79,8 +84,7 @@ export default function ShippingAddress() {
               required
             />
           </Form.Group>
-
-          <Form.Group className='mb-3' controlId='postalCode'>
+          <Form.Group className="mb-3" controlId="postalCode">
             <Form.Label>Postal Code</Form.Label>
             <Form.Control
               value={postalCode}
@@ -88,8 +92,7 @@ export default function ShippingAddress() {
               required
             />
           </Form.Group>
-
-          <Form.Group className='mb-3' controlId='country'>
+          <Form.Group className="mb-3" controlId="country">
             <Form.Label>Country</Form.Label>
             <Form.Control
               value={country}
@@ -97,9 +100,8 @@ export default function ShippingAddress() {
               required
             />
           </Form.Group>
-
-          <div className='mb-3'>
-            <Button variant='primary' type='submit'>
+          <div className="mb-3">
+            <Button variant="primary" type="submit">
               Continue
             </Button>
           </div>

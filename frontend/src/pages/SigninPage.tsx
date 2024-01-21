@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Store } from '../Store'
-import { useSigninMutation } from '../hooks/userHooks'
-import { getError } from '../utils'
-import { ApiError } from '../types/ApiError'
-import { toast } from 'react-toastify'
 import { Button, Container, Form } from 'react-bootstrap'
 import { Helmet } from 'react-helmet-async'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import LoadingBox from '../components/LoadingBox'
+import { useSigninMutation } from '../hooks/userHooks'
+import { Store } from '../Store'
+import { ApiError } from '../types/ApiError'
+import { getError } from '../utils'
 
 export default function SigninPage() {
   const navigate = useNavigate()
@@ -25,7 +25,6 @@ export default function SigninPage() {
 
   const submitHandler = async (e: React.SyntheticEvent) => {
     e.preventDefault()
-
     try {
       const data = await signin({
         email,
@@ -46,37 +45,35 @@ export default function SigninPage() {
   }, [navigate, redirect, userInfo])
 
   return (
-    <Container className='small-container'>
+    <Container className="small-container">
       <Helmet>
         <title>Sign In</title>
       </Helmet>
-      <h1 className='my-3'>Sign In</h1>
+      <h1 className="my-3">Sign In</h1>
       <Form onSubmit={submitHandler}>
-        <Form.Group className='mb-3' controlId='email'>
+        <Form.Group className="mb-3" controlId="email">
           <Form.Label>Email</Form.Label>
           <Form.Control
-            type='email'
+            type="email"
             required
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-
-        <Form.Group className='mb-3' controlId='password'>
+        <Form.Group className="mb-3" controlId="password">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type='password'
+            type="password"
             required
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-
-        <div className='mb-3'>
-          <Button disabled={isLoading} type='submit'>
+        <div className="mb-3">
+          <Button disabled={isLoading} type="submit">
             Sign In
           </Button>
           {isLoading && <LoadingBox />}
         </div>
-        <div className='mb-3'>
+        <div className="mb-3">
           New customer?{' '}
           <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
         </div>

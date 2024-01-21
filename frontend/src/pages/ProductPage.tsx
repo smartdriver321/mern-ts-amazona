@@ -1,15 +1,15 @@
+import { useContext } from 'react'
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { Helmet } from 'react-helmet-async'
 import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import LoadingBox from '../components/LoadingBox'
 import MessageBox from '../components/MessageBox'
 import Rating from '../components/Rating'
 import { useGetProductDetailsBySlugQuery } from '../hooks/productHooks'
-import { ApiError } from '../types/ApiError'
-import { getError, convertProductToCartItem } from '../utils'
-import { useContext } from 'react'
 import { Store } from '../Store'
-import { toast } from 'react-toastify'
+import { ApiError } from '../types/ApiError'
+import { convertProductToCartItem, getError } from '../utils'
 
 export default function ProductPage() {
   const params = useParams()
@@ -22,6 +22,7 @@ export default function ProductPage() {
 
   const { state, dispatch } = useContext(Store)
   const { cart } = state
+
   const navigate = useNavigate()
 
   const addToCartHandler = () => {
@@ -38,21 +39,20 @@ export default function ProductPage() {
     toast.success('Product added to the cart')
     navigate('/cart')
   }
-
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant='danger'>{getError(error as ApiError)}</MessageBox>
+    <MessageBox variant="danger">{getError(error as ApiError)}</MessageBox>
   ) : !product ? (
-    <MessageBox variant='danger'>Product Not Found</MessageBox>
+    <MessageBox variant="danger">Product Not Found</MessageBox>
   ) : (
     <div>
       <Row>
         <Col md={6}>
-          <img className='large' src={product.image} alt={product.name}></img>
+          <img className="large" src={product.image} alt={product.name}></img>
         </Col>
         <Col md={3}>
-          <ListGroup variant='flush'>
+          <ListGroup variant="flush">
             <ListGroup.Item>
               <Helmet>
                 <title>{product.name}</title>
@@ -75,7 +75,7 @@ export default function ProductPage() {
         <Col md={3}>
           <Card>
             <Card.Body>
-              <ListGroup variant='flush'>
+              <ListGroup variant="flush">
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
@@ -87,17 +87,17 @@ export default function ProductPage() {
                     <Col>Status:</Col>
                     <Col>
                       {product.countInStock > 0 ? (
-                        <Badge bg='success'>In Stock</Badge>
+                        <Badge bg="success">In Stock</Badge>
                       ) : (
-                        <Badge bg='danger'>Unavailable</Badge>
+                        <Badge bg="danger">Unavailable</Badge>
                       )}
                     </Col>
                   </Row>
                 </ListGroup.Item>
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
-                    <div className='d-grid'>
-                      <Button onClick={addToCartHandler} variant='primary'>
+                    <div className="d-grid">
+                      <Button onClick={addToCartHandler} variant="primary">
                         Add to Cart
                       </Button>
                     </div>

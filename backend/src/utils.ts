@@ -1,4 +1,4 @@
-import { NextFunction } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { User } from './models/userModel'
 
@@ -11,7 +11,9 @@ export const generateToken = (user: User) => {
       isAdmin: user.isAdmin,
     },
     process.env.JWT_SECRET || 'somethingsecret',
-    { expiresIn: '30d' }
+    {
+      expiresIn: '30d',
+    }
   )
 }
 

@@ -4,13 +4,13 @@ import {
   Button,
   Container,
   Nav,
-  NavDropdown,
   Navbar,
+  NavDropdown,
 } from 'react-bootstrap'
-import { ToastContainer } from 'react-toastify'
-import { LinkContainer } from 'react-router-bootstrap'
-import 'react-toastify/dist/ReactToastify.css'
 import { Link, Outlet } from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { Store } from './Store'
 
 function App() {
@@ -26,7 +26,6 @@ function App() {
   const switchModeHandler = () => {
     dispatch({ type: 'SWITCH_MODE' })
   }
-
   const signoutHandler = () => {
     dispatch({ type: 'USER_SIGNOUT' })
     localStorage.removeItem('userInfo')
@@ -37,39 +36,40 @@ function App() {
   }
 
   return (
-    <div className='d-flex flex-column h-full'>
-      <ToastContainer position='bottom-center' limit={1} />
+    <div className="d-flex flex-column vh-100">
+      <ToastContainer position="bottom-center" limit={1} />
       <header>
-        <Navbar expand='lg'>
+        <Navbar expand="lg">
           <Container>
-            <LinkContainer to='/'>
-              <Navbar.Brand>TS Amazona</Navbar.Brand>
+            <LinkContainer to="/">
+              <Navbar.Brand>tsamazona</Navbar.Brand>
             </LinkContainer>
           </Container>
           <Nav>
             <Button variant={mode} onClick={switchModeHandler}>
               <i className={mode === 'light' ? 'fa fa-sun' : 'fa fa-moon'}></i>
             </Button>
-            <Link to='/cart' className='nav-link'>
+
+            <Link to="/cart" className="nav-link">
               Cart
               {cart.cartItems.length > 0 && (
-                <Badge pill bg='danger'>
+                <Badge pill bg="danger">
                   {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                 </Badge>
               )}
             </Link>
             {userInfo ? (
-              <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
+              <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
                 <Link
-                  className='dropdown-item'
-                  to='#signout'
+                  className="dropdown-item"
+                  to="#signout"
                   onClick={signoutHandler}
                 >
                   Sign Out
                 </Link>
               </NavDropdown>
             ) : (
-              <Link className='nav-link' to='/signin'>
+              <Link className="nav-link" to="/signin">
                 Sign In
               </Link>
             )}
@@ -77,12 +77,12 @@ function App() {
         </Navbar>
       </header>
       <main>
-        <Container className='mt-3'>
+        <Container className="mt-3">
           <Outlet />
         </Container>
       </main>
       <footer>
-        <div className='text-center'>All right reserved</div>
+        <div className="text-center">All rights reserved</div>
       </footer>
     </div>
   )

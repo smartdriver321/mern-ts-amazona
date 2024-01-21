@@ -40,6 +40,7 @@ type Action =
   | { type: 'SWITCH_MODE' }
   | { type: 'CART_ADD_ITEM'; payload: CartItem }
   | { type: 'CART_REMOVE_ITEM'; payload: CartItem }
+  | { type: 'CART_CLEAR' }
   | { type: 'USER_SIGNIN'; payload: UserInfo }
   | { type: 'USER_SIGNOUT' }
   | { type: 'SAVE_SHIPPING_ADDRESS'; payload: ShippingAddress }
@@ -50,7 +51,6 @@ function reducer(state: AppState, action: Action): AppState {
     case 'SWITCH_MODE':
       localStorage.setItem('mode', state.mode === 'dark' ? 'light' : 'dark')
       return { ...state, mode: state.mode === 'dark' ? 'light' : 'dark' }
-
     case 'CART_ADD_ITEM':
       const newItem = action.payload
       const existItem = state.cart.cartItems.find(
@@ -63,6 +63,7 @@ function reducer(state: AppState, action: Action): AppState {
         : [...state.cart.cartItems, newItem]
 
       localStorage.setItem('cartItems', JSON.stringify(cartItems))
+
       return { ...state, cart: { ...state.cart, cartItems } }
 
     case 'CART_REMOVE_ITEM': {
@@ -72,10 +73,11 @@ function reducer(state: AppState, action: Action): AppState {
       localStorage.setItem('cartItems', JSON.stringify(cartItems))
       return { ...state, cart: { ...state.cart, cartItems } }
     }
+    case 'CART_CLEAR':
+      return { ...state, cart: { ...state.cart, cartItems: [] } }
 
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload }
-
     case 'USER_SIGNOUT':
       return {
         mode:
@@ -99,7 +101,6 @@ function reducer(state: AppState, action: Action): AppState {
           totalPrice: 0,
         },
       }
-
     case 'SAVE_SHIPPING_ADDRESS':
       return {
         ...state,
@@ -108,13 +109,11 @@ function reducer(state: AppState, action: Action): AppState {
           shippingAddress: action.payload,
         },
       }
-
     case 'SAVE_PAYMENT_METHOD':
       return {
         ...state,
         cart: { ...state.cart, paymentMethod: action.payload },
       }
-
     default:
       return state
   }
