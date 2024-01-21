@@ -19,6 +19,7 @@ import { StoreProvider } from './Store'
 import CartPage from './pages/CartPage'
 import SigninPage from './pages/SigninPage'
 import SignupPage from './pages/SignupPage'
+import ShippingAddress from './pages/ShippingAddress'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path='cart' element={<CartPage />} />
       <Route path='signin' element={<SigninPage />} />
       <Route path='signup' element={<SignupPage />} />
+      <Route path='shipping' element={<ShippingAddress />} />
       {/* <Route path="dashboard" element={<Dashboard />} /> */}
       {/* ... etc. */}
     </Route>
