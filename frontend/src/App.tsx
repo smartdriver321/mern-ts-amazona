@@ -36,12 +36,12 @@ function App() {
   }
 
   return (
-    <div className="d-flex flex-column vh-100">
-      <ToastContainer position="bottom-center" limit={1} />
+    <div className='d-flex flex-column vh-100'>
+      <ToastContainer position='bottom-center' limit={1} />
       <header>
-        <Navbar expand="lg">
+        <Navbar expand='lg'>
           <Container>
-            <LinkContainer to="/">
+            <LinkContainer to='/'>
               <Navbar.Brand>tsamazona</Navbar.Brand>
             </LinkContainer>
           </Container>
@@ -50,26 +50,29 @@ function App() {
               <i className={mode === 'light' ? 'fa fa-sun' : 'fa fa-moon'}></i>
             </Button>
 
-            <Link to="/cart" className="nav-link">
+            <Link to='/cart' className='nav-link'>
               Cart
               {cart.cartItems.length > 0 && (
-                <Badge pill bg="danger">
+                <Badge pill bg='danger'>
                   {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                 </Badge>
               )}
             </Link>
             {userInfo ? (
-              <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+              <NavDropdown title={userInfo.name} id='basic-nav-dropdown'>
+                <LinkContainer to='/orderhistory'>
+                  <NavDropdown.Item>Order History</NavDropdown.Item>
+                </LinkContainer>
                 <Link
-                  className="dropdown-item"
-                  to="#signout"
+                  className='dropdown-item'
+                  to='#signout'
                   onClick={signoutHandler}
                 >
                   Sign Out
                 </Link>
               </NavDropdown>
             ) : (
-              <Link className="nav-link" to="/signin">
+              <Link className='nav-link' to='/signin'>
                 Sign In
               </Link>
             )}
@@ -77,12 +80,12 @@ function App() {
         </Navbar>
       </header>
       <main>
-        <Container className="mt-3">
+        <Container className='mt-3'>
           <Outlet />
         </Container>
       </main>
       <footer>
-        <div className="text-center">All rights reserved</div>
+        <div className='text-center'>All rights reserved</div>
       </footer>
     </div>
   )
